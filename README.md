@@ -32,4 +32,5 @@ npx expo start
 ## Contact
 
 Amri Mursyid Bin Mohd Zaini
+
 Email: amrimmz@sunway.com.my
