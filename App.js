@@ -36,6 +36,21 @@ const App = () => {
     }
   };
 
+  const completeTodo = (todoId) => {
+    const newTodos = todos.map(todo => {
+      if ( todo.id == todoId) {
+        return {...todo, completed: true};
+      } 
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = (todoId) => {
+    const newTodos = todos.filter(todo => todo.id != todoId);
+    setTodos(newTodos);
+  };
+
   const clearTodos = () => {
     Alert.alert('Wait!!', 'Are you sure you want to delete entire list of tasks?' , [
       {
@@ -74,10 +89,12 @@ const App = () => {
         <View style={styles.listItem}>
           <Text style={[styles.listItemText, {textDecorationLine: todo?.completed? 'line-through': 'none' }]}>{todo?.task}</Text>
         </View>
-        <TouchableOpacity style={[styles.listItemActBtn, {backgroundColor: '#53d769'}]}>
-            <MaterialIcons name="done" size={20} color="#f4f5ff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.listItemActBtn, {backgroundColor: '#FF0000'}]}>
+        { !todo?.completed && (
+          <TouchableOpacity style={[styles.listItemActBtn, {backgroundColor: '#53d769'}]} onPress={() => completeTodo(todo?.id)}>
+              <MaterialIcons name="done" size={20} color="#f4f5ff" />
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity style={[styles.listItemActBtn, {backgroundColor: '#FF0000'}]} onPress={() => deleteTodo(todo?.id)}>
             <MaterialIcons name="delete" size={20} color="#f4f5ff" />
         </TouchableOpacity>
       </View>
